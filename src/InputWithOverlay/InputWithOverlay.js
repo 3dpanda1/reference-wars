@@ -3,6 +3,11 @@ import BaseInputTextArea from './BaseInputTextArea';
 
 const separators = [',', '.', ' ', ';', '\n'];
 
+// props: {
+//   words:
+//   onSave:
+// }
+
 function InputWithOverlay(props) {
   const [textOut, setTextOut] = useState('');
   let count = 0;

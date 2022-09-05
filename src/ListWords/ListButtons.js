@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { PlusSquare, XSquare, CheckSquare } from 'react-bootstrap-icons';
 
-/*props:{
-  action:
-  albumName:
-}
-*/
+// props:{
+//   action:
+//   albumName:
+// }
+
 const ListButtons = (props) => {
   const refInput = useRef();
   const [fieldNew, setFieldNew] = useState('');

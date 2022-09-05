@@ -1,4 +1,10 @@
 import React from 'react';
+
+// props: {
+//   onChangeMessage: 
+//   onEditMessage:
+//   value:
+// }
 const BaseInputTextArea = React.forwardRef((props, ref) => {
   
   function StyleTexArea(textAreaRef) {
