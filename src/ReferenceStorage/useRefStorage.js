@@ -3,7 +3,6 @@ import listWordsDefault from './ListWordsDefault';
 
 const useRefStorage = ()=>{
   const emptyWords = useMemo(()=>(FillWords()), []);
-  //const nonMarkedWords = useMemo (()=>ResetMarks(emptyWords), []);
   const savedOptions = useMemo(()=>LoadOptionsFromStorage (),[])
   const [data, editData] = useState(
     {
@@ -14,17 +13,18 @@ const useRefStorage = ()=>{
         titles: false,
         onlyOnce: false,
       }),
-    } /*{words: [{
-            album: {word: 'p', used: false}, 
-            songs: [{word: 'aa', used: false}]
-          }], 
-          count: 0
-          options: {
-            titles: false,
-            onlyOnce: false,
-          },
-        }*/
-  );
+    } 
+  //   {words: [{
+  //       album: {word: 'p', used: false}, 
+  //       songs: [{word: 'aa', used: false}]
+  //     }], 
+  //     count: 0
+  //     options: {
+  //       titles: false,
+  //       onlyOnce: false,
+  //     },
+  //   }
+  // );
   
   function LoadWordsFromStorage () {
     let stringData = localStorage.getItem("songs");
