@@ -1,17 +1,24 @@
 const express = require("express");
-// eslint-disable-next-line no-unused-vars
-// const bodyParser = require('body-parser');
 const path = require("path");
+const favicon = require("serve-favicon");
+const logger = require("morgan");
+require("dotenv").config();
+require("./config/database");
+
 const app = express();
 
-const server = http.createServer(app);
+app.use(logger("dev"));
+app.use(express.json());
+app.use(favicon(path.join(dirname, "build", "favicon.ico")));
+app.use(express.static(path.join(dirname, "build")));
+app.use("/api/users", require("./routes/api/users"));
 
-app.use(express.static(__dirname + '/'));
+app.get("/*", function (req, res) {
+res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
-// This route serves the React app
-app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, "build", "index.html")));
+const port = process.env.PORT || 3001;
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
+app.listen(port, function () {
+console.log(`express app running on port ${port}`);
 });
