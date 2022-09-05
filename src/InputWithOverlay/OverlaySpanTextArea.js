@@ -1,10 +1,11 @@
 import React from 'react';
 
+// props:{
+//   text:
+// }
+
 function OverlaySpanTextArea(props) {
   const processWord = (currWord, index) => {
-   //currWord.word = currWord.word.replace(' ','\xa0');
-    //console.log(currWord.word, currWord.word.search(/ $/));
-    //currWord.word = currWord.word.replace(/ $/,'\xa0');
     
     if (!currWord.word) return;
     if (currWord.word === '\n') {

@@ -24,7 +24,6 @@ function DisplayListWords(props) {
     const EditTitle = (action, newSong) =>
       props.onEditField('EDIT_TITLE', i, newSong);
 
-    //console.log(key);
     return (
       <DisplayWord
         className={p.used ? ' used' : ''}

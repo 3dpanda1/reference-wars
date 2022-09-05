@@ -2,7 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import DisplayListWords from './DisplayListWords';
 import { PlusSquare} from 'react-bootstrap-icons';
 
-//let semaphore = false;
+// props: {
+//   words: 
+//   onModifySong:
+// }
 
 let semaphore = true;
 function DisplayBoxWords(props) {
@@ -15,7 +18,6 @@ function DisplayBoxWords(props) {
 
   const onChangeHandler = () => {
     if (!refAlbums.current) return false;
-    //console.log('updating width: ' + refAlbums.current);
 
     refAlbums.current.style.height = 'auto';
     const albumWidthRatio = refAlbums.current.offsetWidth / 179;
@@ -30,7 +32,6 @@ function DisplayBoxWords(props) {
     maxHeight = maxHeight < curr ? curr : maxHeight;
   };
 
-  /*manejo de reordenar el tamaño*/
   let time = setTimeout(() => {}, 1000);
 
   const debounceOnChangeHandler = () => {

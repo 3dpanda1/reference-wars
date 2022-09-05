@@ -11,16 +11,16 @@ export default function App() {
   const refText = createRef();
 
   const [data, editData] = useRefStorage( );
-  /*{words: [{
-            album: {word: 'p', used: false}, 
-            songs: [{word: 'aa', used: false}]
-          }], 
-          count: 0
-          options: {
-            titles: false,
-            onlyOnce: false,
-          },
-        }*/
+  // {words: [{
+  //     album: {word: 'p', used: false}, 
+  //     songs: [{word: 'aa', used: false}]
+  //   }], 
+  //   count: 0
+  //   options: {
+  //     titles: false,
+  //     onlyOnce: false,
+  //   },
+  // }
 
 
   function save(a, c) {
