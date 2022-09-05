@@ -24,7 +24,7 @@ const useRefStorage = ()=>{
   //       onlyOnce: false,
   //     },
   //   }
-  // );
+  );
   
   function LoadWordsFromStorage () {
     let stringData = localStorage.getItem("songs");
