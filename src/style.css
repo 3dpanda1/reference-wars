@@ -1,0 +1,291 @@
+body {
+  background: lightgrey;
+}
+
+/* The navigation bar */
+.floating-bar {
+  overflow: hidden;
+  background-color: transparent;
+  position: fixed; /* Set the navbar to fixed position */
+  z-index: 3;
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+.card-top {
+  background-color: #333;
+  height: 30px;
+}
+
+.card-right {
+  /*position: fixed;*/
+  float: right;
+  top: 0px;
+  right: 6%;
+  background-color: #862727;
+  height: auto;
+  text-align: center;
+  padding-inline: 4px;
+  padding-block: 1px;
+  margin-right: 8%;
+  border-radius: 6px;
+  border: 1px solid rgba(189, 163, 133, 0.973);
+  color: rgba(189, 163, 133, 0.973);
+}
+
+.button-right {
+  /*position: fixed;*/
+  float: right;
+  z-index: 1000;
+  margin-right: 5px;
+  margin-top: 3px;
+  right: 6%;
+  background-color: #333;
+  color: rgba(255, 255, 255, 0.973);
+}
+
+.button-copy{
+  background-color: inherit;
+  border-radius: 6px;
+  border: 1px solid rgba(189, 163, 133, 0.973);
+  padding-bottom: 3px;
+  color: currentColor;
+}
+
+.card-left {
+  float: left;
+  margin-left: 2%;
+  color: #dfdfdf;
+  font-size: larger;
+  height: 30px;
+}
+
+.count-title {
+  display: none;
+  font-size: medium;
+}
+
+.count-title-short {
+  display: inline;
+}
+
+.count-number {
+  font-size: x-large;
+}
+
+/* Main content */
+.main {
+  margin-top: 50px; /* Add a top margin to avoid content overlay */
+}
+
+@media only screen and (min-width: 600px) {
+  .main {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+  .card-left {
+    margin-left: 10%;
+  }
+  .card-right {
+    margin-right: 11.5%;
+  }
+  .count-title-short {
+    display: none;
+    font-size: medium;
+  }
+  .count-title {
+    display: inline;
+  }
+}
+
+/*App*/
+.inputTextHidden {
+  background: white;
+  border-left: 2px solid #474747 !important;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  color: transparent;
+  width: 1px;
+}
+
+.inputTextHidden:focus {
+  border-left: 2px solid #474747;
+}
+
+/*InputWithOverlay*/
+.wrapper {
+  position: relative;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.wrapper textarea {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 150;
+  border: none;
+  outline: none !important;
+  background-color: rgb(228, 228, 228);
+
+  word-wrap: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.wrapper textarea:focus {
+  border: none;
+  outline: none !important;
+}
+
+.wrapper-text {
+  position: absolute;
+  box-sizing: border-box;
+  left: 2px;
+  top: 3px;
+  max-width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  pointer-events: none;
+
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-overlay{
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+/*DisplayListWords*/
+.used {
+  background-color: rgba(155, 41, 41, 0.658);
+  color: rgb(5, 0, 0);
+}
+
+.used-inline {
+  background-color: rgb(253, 0, 0);
+  color: rgb(5, 0, 0);
+}
+
+.word {
+  display:inline-block;
+  padding-left: 7%;
+  margin-right: 0%;
+  padding-right: 0%;
+  width: auto;
+  max-width: 65%;
+}
+
+.word-container button{
+  float: right;
+  background-color: inherit;
+  color: currentColor;
+  border: none;
+  height: 20px;
+  width: 20px;
+}
+
+.box-albums {
+  margin: 6px 3px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 5px;
+  background-color: #ff000000;
+  display: inline-flex;
+  flex-flow: column wrap;
+  justify-content: top;
+  width: 100%;
+  height: 40px;
+}
+
+.box-albums-expand {
+  height: 1px;
+  padding: 10 0 px;
+  box-sizing: border-box;
+}
+
+.album {
+  margin: 2px 2px;
+  width: 145px;
+  min-width: 145px;
+  background-color: #666666;
+  vertical-align: top;
+  padding-bottom: 4px;
+  display: flexbox;
+  position: relative;
+}
+
+.album-title {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 30px;
+  background-color: #474747;
+  text-align: center;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+
+.album-songs {
+  font-size: 12px;
+  text-align: left;
+  /*text-transform: uppercase;*/
+}
+
+.album-controls{
+  text-align:center;
+}
+
+.album-controls button{
+  float: inline-block;
+  box-sizing: border-box;
+  background-color: inherit;
+  color: currentColor;
+  border: none;
+  height: 23px;
+  width: 23px;
+}
+
+.input-word button{
+  float: inline-block;
+  box-sizing: border-box;
+  background-color: inherit;
+  color: currentColor;
+  border: none;
+  height: 23px;
+  width: 23px;
+}
+
+.input-word input{
+  float: inline-start;
+  margin-top: 3px;
+  margin-left: 4%;
+  background-color: inherit;
+  width: 70%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.add-album-button{
+  height: 30px;
+  width: 150px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #666666;
+}
+
+button:hover{
+  background-color: #79797957;
+  -moz-box-shadow: inset 0 0 3px #c5c5c5;
+  -webkit-box-shadow: inset 0 0 3px #c5c5c5;
+  box-shadow: inset 0 0 3px #c5c5c5;
+}
+
+button:active{
+  background-color: #a3a3a3dc;
+}
