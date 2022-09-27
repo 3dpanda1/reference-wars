@@ -112,7 +112,14 @@ const listWordsDefault = [
     'For',
     'Beauty Full',
     'Playground',
-    'Dawn']}
+    'Dawn'], {album: 'Vision', 
+    songs:[
+    'Chaotical X', 
+    'Vision',
+    'Fairytale',
+    'Some love',
+    'Rainy day'
+    ]}
 ];
 
 export default listWordsDefault;
