@@ -8,8 +8,6 @@ function LoadOptionsFromStorage () {
   return JSON.parse(stringData);
 }
 
-
-
 const LoadOptions = () => {
   const savedOptions = LoadOptionsFromStorage ();
   return savedOptions ? savedOptions : {

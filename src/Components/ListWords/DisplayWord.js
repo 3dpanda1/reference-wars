@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { PencilSquare, XSquare, CheckSquare } from 'react-bootstrap-icons';
+import { useDispatch } from 'react-redux';
+import { listWordsActions } from '../../store/listWords-slice';
 
 //props:{
 //  className:,
@@ -9,7 +11,7 @@ import { PencilSquare, XSquare, CheckSquare } from 'react-bootstrap-icons';
 //  songName:
 //}
 const DisplayWord = (props) => {
-
+  const dispatch = useDispatch();
   const refInput = useRef();
   const [fieldEdit, setFieldEdit] = useState('');
   const [editButtons, SetEditButtons] = useState();
@@ -17,7 +19,19 @@ const DisplayWord = (props) => {
   const EditWordHandler = () => {
     const inputVal = refInput.current.value; 
     if (inputVal){
-      props.onAction('EDIT_SONG', inputVal);
+      if(props.songIndex<0){
+        dispatch(listWordsActions.EditTitleAlbum({
+          indexAlbum: props.albumIndex, 
+          albumTitle: inputVal
+        }));
+      }else{
+        dispatch(listWordsActions.EditTitleSong({
+          indexAlbum: props.albumIndex, 
+          indexSong: props.songIndex, 
+          songTitle: inputVal
+        }));
+      }
+      //props.onAction('EDIT_SONG', inputVal);
     }
     setFieldEdit ('');
   }
@@ -41,7 +55,10 @@ const DisplayWord = (props) => {
       <>
         {!props.isTitle && (
           <button aria-label = {"delete song " + props.name}
-          onClick={() => props.onAction('DELETE_SONG','')}>
+          onClick={() => dispatch(listWordsActions.DeleteSong({
+            indexAlbum: props.albumIndex, 
+            indexSong: props.songIndex
+          }))}>
             <XSquare/>
           </button>
         )}

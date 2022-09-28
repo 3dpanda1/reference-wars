@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './DisplayListWords';
 import DisplayWord from './DisplayWord';
 import ListButtons from './ListButtons';
@@ -24,13 +25,17 @@ function DisplayListWords(props) {
     const EditTitle = (action, newSong) =>
       props.onEditField('EDIT_TITLE', i, newSong);
 
+    const refs = useSelector(state => state.count.cArray);
+    const used = refs.some(a=>(a[0]===props.albumIndex && a[1]===i));
     return (
       <DisplayWord
-        className={p.used ? ' used' : ''}
+        className={used ? ' used' : ''}
         key={key+ '_display'}
         keyId={key}
         onAction={i < 0 ? EditTitle : EditSong}
         isTitle={i < 0}
+        albumIndex = {props.albumIndex}
+        songIndex = {i}
         name = {p.word}
       >
         {p.word}
@@ -54,6 +59,7 @@ function DisplayListWords(props) {
 
       <ListButtons
         albumName = {props.title.word}
+        albumIndex = {props.albumIndex}
         onAction={(action, newSong) =>
           props.onEditField(action, -1, newSong)
         }

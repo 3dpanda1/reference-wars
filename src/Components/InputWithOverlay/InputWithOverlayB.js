@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { countActions } from '../../store/count-Slice';
+import { listWordsActions } from '../../store/listWords-slice';
 import BaseInputTextArea from './BaseInputTextArea';
 import OverlaySpanTextArea from './OverlaySpanTextArea';
 
@@ -11,23 +13,34 @@ import OverlaySpanTextArea from './OverlaySpanTextArea';
 
 let arrayData = [];
 const InputWithOverlay = React.forwardRef((props, ref) => {
-  let count = 0;
+  //let count = 0;
   const [inputArray, setInputArray] = useState([]);
 
-  const options  = useSelector(state => state.options);
+  const options = useSelector(state => state.options);
+  const words = useSelector(state => state.list.words);
+  const dispatch = useDispatch();
+
+  let used = [];
 
   useEffect(() => {
     changeMessageHandlerV3(inputArray);
   }, [options]);
 
-  const markReference = (reference) => {
-    if (options.onlyOnce && reference.used) return false;
-    reference.used = true;
-    count = count + 1;
+
+  const markReference2 = (indexAlbum, indexSong) => {
+    console.log(words[indexAlbum].songs[indexSong].word,
+      words[indexAlbum].songs[indexSong].used)
+    if (options.onlyOnce && used.some(a=> (a[0]=== indexAlbum && a[1]===indexSong))) 
+      return false;
+    used.push([indexAlbum, indexSong]);
+    console.log(used);
+    console.log('onlyOnce', options.onlyOnce)
+    dispatch(listWordsActions.MarkWord({indexAlbum, indexSong}));
+    dispatch(countActions.incrementCount());
     return true;
   };
 
-  const splitByIndividualWord = (argArrayData, ref) => {
+  const splitByIndividualWord = (argArrayData, ref, n,m) => {
     
     let i = -1;
     let cutArray = argArrayData;
@@ -43,7 +56,7 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
         });
         assembledArray.push({
           word: cutArray.slice(i, i + wordRef.length),
-          marked: markReference(ref),
+          marked: markReference2(n,m),
         });
         cutArray = cutArray.slice(i + wordRef.length);
       }
@@ -58,19 +71,22 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
   };
 
   const changeMessageHandlerV3 = (arrayText) => {
-    let {words, count:countCompar, options2} = props.data;
-    let  allWords = props.cleanWords();
+    //let {words, count:countCompar, options2} = props.data;
     setInputArray(arrayText);
+    dispatch(countActions.resetCount())
+    dispatch(listWordsActions.Reset())
+    used = [];
+    let  allWords = words;
     arrayData = [{ word: arrayText.join(''), marked: false }];
     let arrayTemp = [];
-    for (let wordGroup of allWords) {
-      for (let song of wordGroup.songs) {
+    for (let [n, wordGroup] of allWords.entries()) {
+      for (let [m, song] of wordGroup.songs.entries()) {
         arrayTemp = [];
         for (let segment of arrayData) {
           if (segment.marked) arrayTemp.push(segment);
           else
             arrayTemp = arrayTemp.concat(
-              splitByIndividualWord(segment.word, song)
+              splitByIndividualWord(segment.word, song, n, m)
             );
         }
         arrayData = arrayTemp;
@@ -81,15 +97,15 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
           if (segment.marked) arrayTemp.push(segment);
           else
             arrayTemp = arrayTemp.concat(
-              splitByIndividualWord(segment.word, wordGroup.album)
+              splitByIndividualWord(segment.word, wordGroup.album, n, -1)
             );
         }
         arrayData = arrayTemp;
       }
     }
-
-    if (count !== countCompar)
-      props.onSave(words, count);
+    dispatch(countActions.loadRefs(used));
+    /*if (count !== countCompar)
+      props.onSave(words, count);*/
   };
 
   return (

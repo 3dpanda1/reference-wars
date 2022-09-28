@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import DisplayListWords from './DisplayListWords';
 import { PlusSquare} from 'react-bootstrap-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { listWordsActions } from '../../store/listWords-slice';
 
 // props: {
 //   words: 
@@ -11,6 +13,7 @@ let semaphore = true;
 function DisplayBoxWords(props) {
   const refAlbums = useRef();
   let maxHeight = 0;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     onChangeHandler();
@@ -46,24 +49,27 @@ function DisplayBoxWords(props) {
 
   window.addEventListener('resize', debounceOnChangeHandler);
 
+  const words = useSelector(state => state.list.words);
   return (
     <>
       <div className="box-albums" ref={refAlbums}>
-        {props.words.map((p, i) => (
-          <DisplayListWords
+        {words.map((p, i) => 
+          {
+          return <DisplayListWords
             key={i + '_' + p.album.words}
             id = {i + '_' + p.album.words}
             title={p.album}
             listWords={p.songs}
             loadHeight={maxHeightHandler}
+            albumIndex = {i}
             onEditField ={(action, indexSong, newSong) => {
               props.onModifySong(action, i, indexSong, newSong)
             }}
           />
-        ))}
+          })}
         <button className = "add-album-button" 
         aria-label = "add a new album"
-        onClick={()=>props.onModifySong('ADD_ALBUM', props.words.length)}>
+        onClick={()=>dispatch(listWordsActions.AddAlbum())/*props.onModifySong('ADD_ALBUM', props.words.length)*/}>
         <PlusSquare style={{
             height: '90%',
             width: '90%'

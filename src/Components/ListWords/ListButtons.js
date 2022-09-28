@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { PlusSquare, XSquare, CheckSquare } from 'react-bootstrap-icons';
+import { useDispatch } from 'react-redux';
+import { listWordsActions } from '../../store/listWords-slice';
 
 // props:{
 //   action:
@@ -7,19 +9,22 @@ import { PlusSquare, XSquare, CheckSquare } from 'react-bootstrap-icons';
 // }
 
 const ListButtons = (props) => {
+  const dispatch = useDispatch();
   const refInput = useRef();
   const [fieldNew, setFieldNew] = useState('');
 
   const OnAddWord = () => {
     const inputVal = refInput.current.value; 
     if (inputVal){
-      props.onAction('ADD_SONG', inputVal);
+      dispatch(listWordsActions.AddSong({indexAlbum: props.albumIndex, newSong: inputVal}))
+      //props.onAction('ADD_SONG', inputVal);
     }
     setFieldNew ('');
   }
 
   const DeleteAlbumHandler = () => {
-    props.onAction('DELETE_ALBUM', '');
+    dispatch(listWordsActions.DeleteAlbum({indexAlbum: props.albumIndex}))
+    /*props.onAction('DELETE_ALBUM', '');*/
   }
 
   const FieldNewHandler = () => {
