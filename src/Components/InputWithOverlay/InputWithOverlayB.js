@@ -35,7 +35,6 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     used.push([indexAlbum, indexSong]);
     console.log(used);
     console.log('onlyOnce', options.onlyOnce)
-    dispatch(listWordsActions.MarkWord({indexAlbum, indexSong}));
     dispatch(countActions.incrementCount());
     return true;
   };
@@ -74,7 +73,6 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     //let {words, count:countCompar, options2} = props.data;
     setInputArray(arrayText);
     dispatch(countActions.resetCount())
-    dispatch(listWordsActions.Reset())
     used = [];
     let  allWords = words;
     arrayData = [{ word: arrayText.join(''), marked: false }];

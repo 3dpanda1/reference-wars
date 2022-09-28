@@ -99,21 +99,6 @@ const listWordsSlice = createSlice
     AddAlbum(state, action){
       state.words.push(NewAlbum());
       SaveWordsToStorage(state.words.map(UnloadAlbum));
-    },
-
-    MarkWord(state, action){
-      
-      console.log('marking');
-      const {indexAlbum, indexSong} = action.payload;
-      console.log('indexAlbum',indexAlbum, 'indexSong', indexSong);
-      if(indexSong<0)
-        state.words[indexAlbum].album.used = true;
-      else 
-        state.words[indexAlbum].songs[indexSong].used = true;
-    },
-    Reset(state){
-      console.log('resetting');
-      state.words = ResetMarks(state.words);
     }
   }
 })
