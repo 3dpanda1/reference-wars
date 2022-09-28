@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import BaseInputTextArea from './BaseInputTextArea';
 import OverlaySpanTextArea from './OverlaySpanTextArea';
 
@@ -13,12 +14,14 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
   let count = 0;
   const [inputArray, setInputArray] = useState([]);
 
+  const options  = useSelector(state => state.options);
+
   useEffect(() => {
     changeMessageHandlerV3(inputArray);
-  }, [props.data.options]);
+  }, [options]);
 
   const markReference = (reference) => {
-    if (props.data.options.onlyOnce && reference.used) return false;
+    if (options.onlyOnce && reference.used) return false;
     reference.used = true;
     count = count + 1;
     return true;
@@ -55,7 +58,7 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
   };
 
   const changeMessageHandlerV3 = (arrayText) => {
-    let {words, count:countCompar, options} = props.data;
+    let {words, count:countCompar, options2} = props.data;
     let  allWords = props.cleanWords();
     setInputArray(arrayText);
     arrayData = [{ word: arrayText.join(''), marked: false }];

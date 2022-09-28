@@ -1,11 +1,12 @@
-import React, { useState, createRef, useCallback, useMemo } from 'react';
+import React, { createRef } from 'react';
 import './style.css';
-import InputWithOverlay from './InputWithOverlay/InputWithOverlayB';
+import InputWithOverlay from './Components/InputWithOverlay/InputWithOverlayB';
 
 import useRefStorage from './ReferenceStorage/useRefStorage';
-import DisplayBoxWords from './ListWords/DisplayBoxWords';
-import FloatingBar from './FloatingBar';
-import BaseOptions from './BaseOptions';
+import DisplayBoxWords from './Components/ListWords/DisplayBoxWords';
+import FloatingBar from './Components/FloatingBar';
+import BaseOptions from './Components/BaseOptions';
+import { useSelector } from 'react-redux';
 
 export default function App() {
   const refText = createRef();
@@ -35,6 +36,7 @@ export default function App() {
       return { ...temp, options: options };
     }, true);
   }
+  
   function NewAlbum(){
     return {
       album: {word: 'New Album', used: false},
@@ -77,10 +79,12 @@ export default function App() {
     return refText;
   }
 
+
   return (
     <div>
       <FloatingBar getRef={getRefHandler} refCount={data.count} />
       <div className="main">
+        texto a ingresar:
         <InputWithOverlay
           ref={refText}
           data = {data}
@@ -89,7 +93,7 @@ export default function App() {
         />
         <DisplayBoxWords words={data.words} onModifySong={ModifySongHandler} />
         <br />
-        <BaseOptions value={data.options} onChange={changeOptionsHandler} />
+        <BaseOptions onChange={changeOptionsHandler} />
       </div>
     </div>
   );
