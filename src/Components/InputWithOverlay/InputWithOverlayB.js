@@ -9,7 +9,7 @@ import OverlaySpanTextArea from './OverlaySpanTextArea';
 //   cleanWords:
 //   onSave:
 // }
-let separators = [' ', ',', ';', '.', ':', '-', '=', '(', ')', '[', ']', '|', '?', '~', '!', '+', '>', '"', '%', '*'];
+let separators = [' ', ',', ';', '.', ':', '-', '=', '(', ')', '[', ']', '|', '?', '~', '!', '+', '>', '"', '%', '*', '\n', '\t'];
 let arrayData = [];
 const InputWithOverlay = React.forwardRef((props, ref) => {
   const [inputArray, setInputArray] = useState([]);
@@ -24,13 +24,29 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     changeMessageHandlerV3(inputArray);
   }, [options, words]);
 
-  const CheckCompleteness = (charIndex, array)=>{
-    if (charIndex < array.length)
-      return separators.includes(array[charIndex]);
-    return true;
+  const CheckCompleteness = (charStart, charEnd, array)=>{
+    let startCheck = charStart<0 || separators.includes(array[charStart]);
+    let endCheck = array.length<=charEnd || separators.includes(array[charEnd]);
+    return startCheck && endCheck;
   }
 
-  const markReference2 = (indexAlbum, indexSong) => {
+  const findIndex = ( cutArray, wordRef)=>{
+    let n = 0;
+    let i = cutArray.toLowerCase().indexOf(wordRef.toLowerCase());
+    let vars = [];
+    while(0<=i){
+      vars.push(n+i);
+      n += i + wordRef.length;
+      i = cutArray.slice(n).toLowerCase().indexOf(wordRef.toLowerCase());
+    }
+    for(const index of vars){
+      if(CheckCompleteness(index-1 , index+wordRef.length,cutArray)) 
+        return index;
+    }
+    return -1;
+  }
+
+  const markReference = (indexAlbum, indexSong) => {
     if (options.onlyOnce && used.some(a=> (a[0]=== indexAlbum && a[1]===indexSong))) 
       return false;
     used.push([indexAlbum, indexSong]);
@@ -46,7 +62,7 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     let wordRef = ref;
 
     do {
-      i = cutArray.toLowerCase().indexOf(wordRef.toLowerCase());
+      i = findIndex( cutArray, wordRef);
       const endpoint = i + wordRef.length;
       if (0 <= i) {
         assembledArray.push({
@@ -55,7 +71,7 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
         });
         assembledArray.push({
           word: cutArray.slice(i, endpoint),
-          marked: CheckCompleteness(endpoint, cutArray) ? markReference2(n,m) : false,
+          marked: markReference(n,m),
         });
         cutArray = cutArray.slice(endpoint);
       }

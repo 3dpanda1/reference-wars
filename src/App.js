@@ -84,7 +84,6 @@ export default function App() {
     <div>
       <FloatingBar getRef={getRefHandler} refCount={data.count} />
       <div className="main">
-        texto a ingresar:
         <InputWithOverlay
           ref={refText}
           data = {data}
