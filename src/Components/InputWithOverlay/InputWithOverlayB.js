@@ -9,6 +9,7 @@ import OverlaySpanTextArea from './OverlaySpanTextArea';
 //   cleanWords:
 //   onSave:
 // }
+
 let separators = [' ', ',', ';', '.', ':', '-', '=', '(', ')', '[', ']', '|', '?', '~', '!', '+', '>', '"', '%', '*', '\n', '\t'];
 let arrayData = [];
 const InputWithOverlay = React.forwardRef((props, ref) => {
@@ -35,13 +36,12 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     let i = cutArray.toLowerCase().indexOf(wordRef.toLowerCase());
     let vars = [];
     while(0<=i){
-      vars.push(n+i);
-      n += i + wordRef.length;
-      i = cutArray.slice(n).toLowerCase().indexOf(wordRef.toLowerCase());
-    }
-    for(const index of vars){
+      const index = n+i;
       if(CheckCompleteness(index-1 , index+wordRef.length,cutArray)) 
         return index;
+      vars.push();
+      n += i + wordRef.length;
+      i = cutArray.slice(n).toLowerCase().indexOf(wordRef.toLowerCase());
     }
     return -1;
   }

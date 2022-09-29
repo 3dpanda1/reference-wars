@@ -53,7 +53,7 @@ const DisplayWord = (props) => {
   const onHoverHandler = () => {
     SetEditButtons(
       <>
-        {!props.isTitle && (
+        {-1< props.songIndex && (
           <button aria-label = {"delete song " + props.name}
           onClick={() => dispatch(listWordsActions.DeleteSong({
             indexAlbum: props.albumIndex, 

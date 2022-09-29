@@ -17,14 +17,12 @@ const ListButtons = (props) => {
     const inputVal = refInput.current.value; 
     if (inputVal){
       dispatch(listWordsActions.AddSong({indexAlbum: props.albumIndex, newSong: inputVal}))
-      //props.onAction('ADD_SONG', inputVal);
     }
     setFieldNew ('');
   }
 
   const DeleteAlbumHandler = () => {
     dispatch(listWordsActions.DeleteAlbum({indexAlbum: props.albumIndex}))
-    /*props.onAction('DELETE_ALBUM', '');*/
   }
 
   const FieldNewHandler = () => {

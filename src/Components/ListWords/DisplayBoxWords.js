@@ -62,14 +62,11 @@ function DisplayBoxWords(props) {
             listWords={p.songs}
             loadHeight={maxHeightHandler}
             albumIndex = {i}
-            onEditField ={(action, indexSong, newSong) => {
-              props.onModifySong(action, i, indexSong, newSong)
-            }}
           />
           })}
         <button className = "add-album-button" 
         aria-label = "add a new album"
-        onClick={()=>dispatch(listWordsActions.AddAlbum())/*props.onModifySong('ADD_ALBUM', props.words.length)*/}>
+        onClick={()=>dispatch(listWordsActions.AddAlbum())}>
         <PlusSquare style={{
             height: '90%',
             width: '90%'
