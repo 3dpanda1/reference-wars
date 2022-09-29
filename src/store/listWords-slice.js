@@ -27,16 +27,21 @@ function NewAlbum(){
   };
 }
 
+const tryLoad = (field)=>{
+  if(field.word)
+    return field.word;
+  return field;
+}
+
 const LoadAlbum = (album)=>{
-    return {album: {word: album.album, used: false},
-            songs: album.songs.map(s => ({word: s/*, used: false*/}))
+    return {album: tryLoad(album.album),
+            songs: album.songs.map(s => tryLoad(s))
         }
 }
 
 const LoadWords = () => {
   const savedWords = LoadWordsFromStorage ();
-  //console.log (savedWords, listWordsDefault)
-  let ret = savedWords ? savedWords : listWordsDefault;
+  let ret = savedWords ? savedWords.map(LoadAlbum) : listWordsDefault;
   return ret;
 };
 
