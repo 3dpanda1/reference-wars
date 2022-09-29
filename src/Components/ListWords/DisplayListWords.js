@@ -12,7 +12,7 @@ import ListButtons from './ListButtons';
 function DisplayListWords(props) {
   const refAlbumBox = useRef();
   const refs = useSelector(state => state.count.cArray);
-  
+
   useEffect(() => {
     props.loadHeight(refAlbumBox.current.offsetHeight);
   });
@@ -20,21 +20,12 @@ function DisplayListWords(props) {
   function StyleEachWord(p, i) {
     let key = (i < 0 ? 'title' : i) + '_' + p;
 
-    const EditSong = (action, newSong) => {
-      props.onEditField(action, i, newSong);
-    };
-
-    const EditTitle = (action, newSong) =>
-      props.onEditField('EDIT_TITLE', i, newSong);
-
     const used = refs.some(a=>(a[0]===props.albumIndex && a[1]===i));
     return (
       <DisplayWord
         className={used ? ' used' : ''}
         key={key+ '_display'}
         keyId={key}
-        onAction={i < 0 ? EditTitle : EditSong}
-        isTitle={i < 0}
         albumIndex = {props.albumIndex}
         songIndex = {i}
         name = {p}

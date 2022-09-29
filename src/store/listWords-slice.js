@@ -26,23 +26,6 @@ function NewAlbum(){
     songs: []
   };
 }
-const ResetMarks = (tempWords) => {
-    let ret = tempWords.map((p) => {
-      p.album.used = false;
-      p.songs.map((s) => {
-        s.used = false;
-        return s;
-      });
-      return p;
-    });
-    return ret;
-  };
-
-const UnloadAlbum = (album)=>{
-    return{album: album.album.word,
-            songs: album.songs.map(s=>s.word)
-        }
-}
 
 const LoadAlbum = (album)=>{
     return {album: {word: album.album, used: false},
@@ -54,7 +37,6 @@ const LoadWords = () => {
   const savedWords = LoadWordsFromStorage ();
   //console.log (savedWords, listWordsDefault)
   let ret = savedWords ? savedWords : listWordsDefault;
-  console.log (ret.map(LoadAlbum));
   return ret;
 };
 

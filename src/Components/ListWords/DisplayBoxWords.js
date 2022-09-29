@@ -50,15 +50,14 @@ function DisplayBoxWords(props) {
   window.addEventListener('resize', debounceOnChangeHandler);
 
   const words = useSelector(state => state.list.words);
-  console.log("words array:", words);
   return (
     <>
       <div className="box-albums" ref={refAlbums}>
         {words.map((p, i) => 
           {
           return <DisplayListWords
-            key={i + '_' + p.album.words}
-            id = {i + '_' + p.album.words}
+            key={i + '_' + p.album}
+            id = {i + '_' + p.album}
             title={p.album}
             listWords={p.songs}
             loadHeight={maxHeightHandler}
