@@ -22,7 +22,7 @@ function SaveWordsToStorage(wordsData) {
 
 function NewAlbum(){
   return {
-    album: {word: 'New Album', used: false},
+    album: 'New Album',
     songs: []
   };
 }
@@ -46,7 +46,7 @@ const UnloadAlbum = (album)=>{
 
 const LoadAlbum = (album)=>{
     return {album: {word: album.album, used: false},
-            songs: album.songs.map(s => ({word: s, used: false}))
+            songs: album.songs.map(s => ({word: s/*, used: false*/}))
         }
 }
 
@@ -55,7 +55,7 @@ const LoadWords = () => {
   //console.log (savedWords, listWordsDefault)
   let ret = savedWords ? savedWords : listWordsDefault;
   console.log (ret.map(LoadAlbum));
-  return ret.map(LoadAlbum);
+  return ret;
 };
 
 const listWordsSlice = createSlice
@@ -66,39 +66,33 @@ const listWordsSlice = createSlice
     DeleteSong(state, action){
       const {indexAlbum, indexSong} = action.payload;
       state.words[indexAlbum].songs.splice(indexSong, 1);
-      SaveWordsToStorage(state.words.map(UnloadAlbum));
+      SaveWordsToStorage(state.words);
     },
     EditTitleSong(state, action){
       const {indexAlbum, indexSong, songTitle} = action.payload;
       console.log('indexAlbum',indexAlbum, 'indexSong', indexSong);
-      state.words[indexAlbum].songs.splice(indexSong, 1, {
-        word: songTitle,
-        used: false,
-      });
-      SaveWordsToStorage(state.words.map(UnloadAlbum));
+      state.words[indexAlbum].songs.splice(indexSong, 1,songTitle);
+      SaveWordsToStorage(state.words);
     },
     EditTitleAlbum(state, action){
       const {indexAlbum, albumTitle} = action.payload;
       console.log('indexAlbum',indexAlbum);
-      state.words[indexAlbum].album = { word: albumTitle, used: false };
-      SaveWordsToStorage(state.words.map(UnloadAlbum));
+      state.words[indexAlbum].album = albumTitle;
+      SaveWordsToStorage(state.words);
     },
     AddSong(state, action){
         const {indexAlbum, newSong} = action.payload;
-    state.words[indexAlbum].songs.push({
-      word: newSong,
-      used: false,
-    });
-    SaveWordsToStorage(state.words.map(UnloadAlbum));
+    state.words[indexAlbum].songs.push(newSong);
+    SaveWordsToStorage(state.words);
     },
     DeleteAlbum(state, action){
         const {indexAlbum} = action.payload;
       state.words.splice(indexAlbum, 1);
-      SaveWordsToStorage(state.words.map(UnloadAlbum));
+      SaveWordsToStorage(state.words);
     },
     AddAlbum(state, action){
       state.words.push(NewAlbum());
-      SaveWordsToStorage(state.words.map(UnloadAlbum));
+      SaveWordsToStorage(state.words);
     }
   }
 })

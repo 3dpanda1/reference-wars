@@ -50,6 +50,7 @@ function DisplayBoxWords(props) {
   window.addEventListener('resize', debounceOnChangeHandler);
 
   const words = useSelector(state => state.list.words);
+  console.log("words array:", words);
   return (
     <>
       <div className="box-albums" ref={refAlbums}>

@@ -11,12 +11,14 @@ import ListButtons from './ListButtons';
 
 function DisplayListWords(props) {
   const refAlbumBox = useRef();
+  const refs = useSelector(state => state.count.cArray);
+  
   useEffect(() => {
     props.loadHeight(refAlbumBox.current.offsetHeight);
   });
 
   function StyleEachWord(p, i) {
-    let key = (i < 0 ? 'title' : i) + '_' + p.word;
+    let key = (i < 0 ? 'title' : i) + '_' + p;
 
     const EditSong = (action, newSong) => {
       props.onEditField(action, i, newSong);
@@ -25,7 +27,6 @@ function DisplayListWords(props) {
     const EditTitle = (action, newSong) =>
       props.onEditField('EDIT_TITLE', i, newSong);
 
-    const refs = useSelector(state => state.count.cArray);
     const used = refs.some(a=>(a[0]===props.albumIndex && a[1]===i));
     return (
       <DisplayWord
@@ -36,9 +37,9 @@ function DisplayListWords(props) {
         isTitle={i < 0}
         albumIndex = {props.albumIndex}
         songIndex = {i}
-        name = {p.word}
+        name = {p}
       >
-        {p.word}
+        {p}
       </DisplayWord>
     );
   }

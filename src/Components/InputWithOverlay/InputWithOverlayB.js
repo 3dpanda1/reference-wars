@@ -24,12 +24,12 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     changeMessageHandlerV3(inputArray);
-  }, [options]);
+  }, [options, words]);
 
 
   const markReference2 = (indexAlbum, indexSong) => {
-    console.log(words[indexAlbum].songs[indexSong].word,
-      words[indexAlbum].songs[indexSong].used)
+    /*console.log(words[indexAlbum].songs[indexSong].word,
+      used.some(a=> (a[0]=== indexAlbum && a[1]===indexSong))*/
     if (options.onlyOnce && used.some(a=> (a[0]=== indexAlbum && a[1]===indexSong))) 
       return false;
     used.push([indexAlbum, indexSong]);
@@ -44,7 +44,7 @@ const InputWithOverlay = React.forwardRef((props, ref) => {
     let i = -1;
     let cutArray = argArrayData;
     let assembledArray = [];
-    let wordRef = ref.word;
+    let wordRef = ref;
 
     do {
       i = cutArray.toLowerCase().indexOf(wordRef.toLowerCase());
